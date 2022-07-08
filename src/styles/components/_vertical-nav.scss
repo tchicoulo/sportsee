@@ -1,0 +1,25 @@
+.vertical-nav {
+  background-color: black;
+  width: 117px;
+  height: calc(100vh - 91px);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  & .icons {
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  & .icons img {
+    margin: 7px 0;
+  }
+  & span {
+    color: white;
+    font-size: 12px;
+    text-orientation: mixed;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+  }
+}
