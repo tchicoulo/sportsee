@@ -1,8 +1,6 @@
 .container {
   display: flex;
-  border: 1px solid orange;
   & .content {
     width: 100%;
-    border: 1px solid blue;
   }
 }
