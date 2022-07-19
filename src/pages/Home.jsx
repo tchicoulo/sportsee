@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import HorizontalNav from "../components/HorizontalNav";
 import VerticalNav from "../components/VerticalNav";
 import axios from "axios";
@@ -13,70 +14,82 @@ import cheeseburger from "../assets/img/cheeseburger.png";
 import chicken from "../assets/img/chicken.png";
 import energy from "../assets/img/energy.png";
 // import { dataGlobal } from "../services";
+// import dotenv from "dotenv";
+// require("dotenv").config();
 
 const Home = () => {
+  const { id } = useParams();
+  let navigate = useNavigate();
+
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [dataActivity, setDataActivity] = useState([]);
   const [dataSessions, setDataSessions] = useState([]);
   // const [dataPerf, setDataPerf] = useState([]);
 
-  // const calories = data.keyData.calorieCount;
-  // const calories = data.keyData.calorieCount;
-  // console.log(typeof calories);
-  // console.log(calories.toLocalString());
-
-  if (process.env.REACT_APP_ENV === "dev") {
-    console.log("okok");
-  } else {
-    console.log("non...");
-  }
-
   useEffect(() => {
-    // dataGlobal()
-    // .then((res) => {
-    //   setData(res);
-    //   setLoading(false);
-    // })
-    //   .catch((err) => console.log(err));
-
     axios
-      .get("http://localhost:3000/user/12")
+      .get(`http://localhost:3000/user/${id}`)
       .then((res) => {
         setData(res.data.data);
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 404) {
+          navigate("/error");
+        }
       });
+
     axios
-      .get("http://localhost:3000/user/12/activity")
+      .get(`http://localhost:3000/user/${id}/activity`)
       .then((res) => {
         setDataActivity(res.data.data);
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 404) {
+          navigate("/error");
+        }
       });
     axios
-      .get("http://localhost:3000/user/12/average-sessions")
+      .get(`http://localhost:3000/user/${id}/average-sessions`)
       .then((res) => {
         setDataSessions(res.data.data);
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 404) {
+          navigate("/error");
+        }
       });
     // axios
-    //   .get("http://localhost:3000/user/12/performance")
+    //   .get(`http://localhost:3000/user/${id}/performance`)
     //   .then((res) => {
     //     setDataPerf(res.data.data);
     //     setLoading(false);
     //   })
     //   .catch((err) => {
     //     console.log(err);
+    // return <Navigate to="/error" replace={true} />;
     // });
-  }, []);
+  }, [id, navigate]);
+
+  // if (idAvailable === undefined) {
+  //   return <Navigate to="/error" replace={true} />;
+  // }
+
+  // const calories = data.keyData.calorieCount;
+  // const calories = data.keyData.calorieCount;
+  // console.log(typeof calories);
+  // console.log(calories.toLocalString());
+
+  console.log(process.env.NODE_ENV);
+  console.log(process.env.REACT_APP_MODE);
+  // if (process.env.REACT_APP_MODE === "dev") {
+  //   console.log("okok");
+  // } else {
+  //   console.log("non...");
+  // }
 
   // console.log(data);
   // console.log(dataActivity);

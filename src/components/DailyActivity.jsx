@@ -38,8 +38,9 @@ const DailyActivity = ({ data }) => {
           <XAxis dataKey={"day"} stroke="#9B9EAC" />
           <YAxis orientation="right" stroke="#9B9EAC" />
           <Tooltip />
-          <Bar dataKey="kilogram" name="Poids(kg)" fill="#282D30" />
+          <Bar barSize={7} dataKey="kilogram" name="Poids(kg)" fill="#282D30" />
           <Bar
+            barSize={7}
             dataKey="calories"
             name="Calories brûlées (kCal)"
             fill="#ff0101"
