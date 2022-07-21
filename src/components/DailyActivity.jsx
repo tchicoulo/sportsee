@@ -11,7 +11,7 @@ import {
 } from "recharts";
 
 const DailyActivity = ({ data }) => {
-  console.log(data.sessions);
+  // console.log(data.sessions);
   return (
     <div className="daily-activity">
       <h3>Activité Quotidienne</h3>

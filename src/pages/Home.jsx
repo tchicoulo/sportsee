@@ -13,9 +13,12 @@ import apple from "../assets/img/apple.png";
 import cheeseburger from "../assets/img/cheeseburger.png";
 import chicken from "../assets/img/chicken.png";
 import energy from "../assets/img/energy.png";
-// import { dataGlobal } from "../services";
-// import dotenv from "dotenv";
-// require("dotenv").config();
+import {
+  USER_MAIN_DATA,
+  USER_ACTIVITY,
+  USER_AVERAGE_SESSIONS,
+  USER_PERFORMANCE,
+} from "../services/data";
 
 const Home = () => {
   const { id } = useParams();
@@ -25,71 +28,83 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [dataActivity, setDataActivity] = useState([]);
   const [dataSessions, setDataSessions] = useState([]);
-  // const [dataPerf, setDataPerf] = useState([]);
+  const [dataPerf, setDataPerf] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/user/${id}`)
-      .then((res) => {
-        setData(res.data.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err.response.status === 404) {
-          navigate("/error");
-        }
-      });
+    if (process.env.NODE_ENV === "development") {
+      console.log("mode dev");
 
-    axios
-      .get(`http://localhost:3000/user/${id}/activity`)
-      .then((res) => {
-        setDataActivity(res.data.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err.response.status === 404) {
-          navigate("/error");
-        }
-      });
-    axios
-      .get(`http://localhost:3000/user/${id}/average-sessions`)
-      .then((res) => {
-        setDataSessions(res.data.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err.response.status === 404) {
-          navigate("/error");
-        }
-      });
-    // axios
-    //   .get(`http://localhost:3000/user/${id}/performance`)
-    //   .then((res) => {
-    //     setDataPerf(res.data.data);
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    // return <Navigate to="/error" replace={true} />;
-    // });
+      const mainData = USER_MAIN_DATA.find((el) => el.id === parseInt(id));
+      const activityData = USER_ACTIVITY.find(
+        (el) => el.userId === parseInt(id)
+      );
+      const averageSessionsData = USER_AVERAGE_SESSIONS.find(
+        (el) => el.userId === parseInt(id)
+      );
+      const performanceData = USER_PERFORMANCE.find(
+        (el) => el.userId === parseInt(id)
+      );
+
+      setData(mainData);
+      setDataActivity(activityData);
+      setDataSessions(averageSessionsData);
+      setDataPerf(performanceData);
+      setLoading(false);
+    } else {
+      console.log("mode prod");
+
+      axios
+        .get(`http://localhost:3000/user/${id}`)
+        .then((res) => {
+          setData(res.data.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          if (err.response.status === 404) {
+            navigate("/error");
+          }
+        });
+
+      axios
+        .get(`http://localhost:3000/user/${id}/activity`)
+        .then((res) => {
+          setDataActivity(res.data.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          if (err.response.status === 404) {
+            navigate("/error");
+          }
+        });
+      axios
+        .get(`http://localhost:3000/user/${id}/average-sessions`)
+        .then((res) => {
+          setDataSessions(res.data.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          if (err.response.status === 404) {
+            navigate("/error");
+          }
+        });
+      axios
+        .get(`http://localhost:3000/user/${id}/performance`)
+        .then((res) => {
+          setDataPerf(res.data.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          if (err.response.status === 404) {
+            navigate("/error");
+          }
+        });
+    }
   }, [id, navigate]);
-
-  // if (idAvailable === undefined) {
-  //   return <Navigate to="/error" replace={true} />;
-  // }
 
   // const calories = data.keyData.calorieCount;
   // const calories = data.keyData.calorieCount;
   // console.log(typeof calories);
   // console.log(calories.toLocalString());
-
-  console.log(process.env.NODE_ENV);
-  console.log(process.env.REACT_APP_MODE);
-  // if (process.env.REACT_APP_MODE === "dev") {
-  //   console.log("okok");
-  // } else {
-  //   console.log("non...");
-  // }
 
   // console.log(data);
   // console.log(dataActivity);
@@ -103,14 +118,12 @@ const Home = () => {
         <div className="content">
           <VerticalNav />
           <div className="loading">
-            <h2>Chargement...</h2>
+            <span>Chargement...</span>
           </div>
         </div>
       </div>
     );
   }
-
-  console.log(data.keyData);
 
   return (
     <div>
@@ -125,7 +138,7 @@ const Home = () => {
               <DailyActivity data={dataActivity} />
               <div className="charts-box">
                 <AverageSessions data={dataSessions} />
-                <Performances />
+                <Performances data={dataPerf} />
                 <Objectifs />
               </div>
             </div>
