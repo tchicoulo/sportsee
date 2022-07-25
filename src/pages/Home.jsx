@@ -131,7 +131,9 @@ const Home = () => {
       <div className="container">
         <VerticalNav />
         <div className="content">
-          <h1>Bonjour {data.userInfos.firstName}</h1>
+          <h1>
+            Bonjour <span className="name">{data.userInfos.firstName}</span>
+          </h1>
           <h2>Félicitation ! Vous avez explosé vos objectifs hier 👏</h2>
           <div className="content-charts">
             <div className="charts">

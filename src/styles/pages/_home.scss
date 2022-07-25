@@ -3,6 +3,23 @@
   & .content {
     width: 100%;
     border: 1px solid red;
+    & > h1,
+    > h2 {
+      font-weight: 400;
+      font-size: 18px;
+      width: 100%;
+      border: 1px solid orangered;
+      margin-left: 7%;
+      margin-bottom: 77px;
+    }
+    & > h1 {
+      font-size: 48px;
+      margin-top: 70px;
+      margin-bottom: 41px;
+      & .name {
+        color: $color-red;
+      }
+    }
   }
   & .content-charts {
     width: 100%;
