@@ -131,10 +131,15 @@ const Home = () => {
       <div className="container">
         <VerticalNav />
         <div className="content">
-          <h1>
-            Bonjour <span className="name">{data.userInfos.firstName}</span>
-          </h1>
-          <h2>Félicitation ! Vous avez explosé vos objectifs hier 👏</h2>
+          <div className="content-name">
+            <div className="title-box">
+              <h1>
+                Bonjour <span className="name">{data.userInfos.firstName}</span>
+              </h1>
+              <h2>Félicitation ! Vous avez explosé vos objectifs hier 👏</h2>
+            </div>
+            <div className="title-box-side"></div>
+          </div>
           <div className="content-charts">
             <div className="charts">
               <DailyActivity data={dataActivity} />

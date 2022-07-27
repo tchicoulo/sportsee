@@ -2,17 +2,15 @@
   display: flex;
   & .content {
     width: 100%;
-    border: 1px solid red;
-    & > h1,
-    > h2 {
+    & .title-box > h1,
+    .title-box > h2 {
+      width: 60%;
       font-weight: 400;
       font-size: 18px;
       width: 100%;
-      border: 1px solid orangered;
-      margin-left: 7%;
       margin-bottom: 77px;
     }
-    & > h1 {
+    & .title-box > h1 {
       font-size: 48px;
       margin-top: 70px;
       margin-bottom: 41px;
@@ -20,12 +18,18 @@
         color: $color-red;
       }
     }
+    & .title-box {
+      width: 60%;
+    }
+    & .title-box-side {
+      width: 20%;
+    }
   }
-  & .content-charts {
+  & .content-charts,
+  .content-name {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
-    border: 3px solid rgb(237, 104, 215);
   }
   & .charts {
     width: 60%;
@@ -37,12 +41,10 @@
       width: 100%;
     }
   }
-  &.infos-user {
+  & .infos-user {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    border: 5px solid green;
     width: 20%;
   }
 }
