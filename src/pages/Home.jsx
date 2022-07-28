@@ -45,11 +45,17 @@ const Home = () => {
         (el) => el.userId === parseInt(id)
       );
 
-      setData(mainData);
-      setDataActivity(activityData);
-      setDataSessions(averageSessionsData);
-      setDataPerf(performanceData);
-      setLoading(false);
+      try {
+        if (mainData.id) {
+          setData(mainData);
+          setDataActivity(activityData);
+          setDataSessions(averageSessionsData);
+          setDataPerf(performanceData);
+          setLoading(false);
+        }
+      } catch (error) {
+        navigate("/error");
+      }
     } else {
       console.log("mode prod");
 

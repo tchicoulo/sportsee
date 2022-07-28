@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import {
   BarChart,
   Bar,
@@ -11,6 +12,9 @@ import {
 } from "recharts";
 
 const DailyActivity = ({ data }) => {
+  const formatXAxis = (tickFormat) => {
+    return moment(tickFormat).format("D");
+  };
   // console.log(data.sessions);
   return (
     <div className="daily-activity">
@@ -20,25 +24,47 @@ const DailyActivity = ({ data }) => {
           width={835}
           height={320}
           data={data.sessions}
-          // margin={{
-          //   top: 0,
-          //   right: 20,
-          //   left: 20,
-          //   bottom: 5,
-          // }}
+          margin={{
+            top: 10,
+            right: 30,
+            left: 50,
+            bottom: 110,
+          }}
         >
           <Legend
             iconSize={8}
             iconType={"circle"}
             verticalAlign={"top"}
             align={"right"}
-            height={30}
+            wrapperStyle={{ top: -41, left: 50 }}
           />
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey={"day"} stroke="#9B9EAC" />
-          <YAxis orientation="right" stroke="#9B9EAC" />
+          <CartesianGrid vertical={false} strokeDasharray="3 3" />
+          <XAxis
+            dataKey={"day"}
+            stroke="#9B9EAC"
+            tickFormatter={formatXAxis}
+            axisLine={false}
+            tickLine={false}
+            dy={20}
+          />
+          <YAxis
+            yAxisId={"right"}
+            orientation="right"
+            stroke="#9B9EAC"
+            axisLine={false}
+            tickLine={false}
+            dx={20}
+          />
+          <YAxis
+            yAxisId={"left"}
+            orientation="left"
+            stroke="#9B9EAC"
+            hide
+            axisLine={false}
+          />
           <Tooltip />
           <Bar
+            yAxisId="right"
             barSize={7}
             dataKey="kilogram"
             name="Poids(kg)"
@@ -46,6 +72,7 @@ const DailyActivity = ({ data }) => {
             radius={[10, 10, 0, 0]}
           />
           <Bar
+            yAxisId="left"
             barSize={7}
             dataKey="calories"
             name="Calories brûlées (kCal)"
