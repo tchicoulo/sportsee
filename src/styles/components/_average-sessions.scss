@@ -1,5 +1,13 @@
 .average-sessions {
-  width: 20%;
-  height: 263px;
-  border: 1px solid orange;
+  width: 30%;
+  height: 240px;
+  border-radius: 5px;
+  background-color: $color-red;
+  & > h3 {
+    font-size: 15px;
+    width: 150px;
+    margin: 28px 0 0 28px;
+    color: white;
+    font-weight: 500;
+  }
 }

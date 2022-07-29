@@ -15,14 +15,22 @@ const DailyActivity = ({ data }) => {
   const formatXAxis = (tickFormat) => {
     return moment(tickFormat).format("D");
   };
-  // console.log(data.sessions);
+
+  const customToolTip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          <p className="kilos">{`${payload[0].value}kg`}</p>
+          <p className="kcals">{`${payload[1].value}Kcal`}</p>
+        </div>
+      );
+    }
+  };
   return (
     <div className="daily-activity">
       <h3>Activité Quotidienne</h3>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
-          width={835}
-          height={320}
           data={data.sessions}
           margin={{
             top: 10,
@@ -62,7 +70,7 @@ const DailyActivity = ({ data }) => {
             hide
             axisLine={false}
           />
-          <Tooltip />
+          <Tooltip content={customToolTip} />
           <Bar
             yAxisId="right"
             barSize={7}

@@ -1,8 +1,25 @@
 .daily-activity {
   width: 100%;
-  height: 350px;
+  height: 320px;
+  border-radius: 5px;
+
   background-color: $color-background-charts;
   & h3 {
     padding: 30px 0 20px 50px;
+  }
+}
+
+.custom-tooltip {
+  width: 54px;
+  height: 78px;
+  background-color: $color-red;
+  color: white;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  & .kilos {
+    margin-bottom: 7px;
   }
 }

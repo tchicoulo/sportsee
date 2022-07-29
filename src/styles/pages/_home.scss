@@ -8,12 +8,12 @@
       font-weight: 400;
       font-size: 18px;
       width: 100%;
-      margin-bottom: 77px;
+      margin-bottom: 67px;
     }
     & .title-box > h1 {
       font-size: 48px;
       margin-top: 70px;
-      margin-bottom: 41px;
+      margin-bottom: 31px;
       & .name {
         color: $color-red;
       }
@@ -35,10 +35,12 @@
     width: 60%;
     display: flex;
     flex-direction: column;
-    border: 1px solid blue;
+    // border: 1px solid blue;
     & .charts-box {
       display: flex;
+      justify-content: space-between;
       width: 100%;
+      margin-top: 30px;
     }
   }
   & .infos-user {
