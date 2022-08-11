@@ -43,7 +43,7 @@ const AverageSessions = ({ data }) => {
           <Line
             stroke="#FFFFFF"
             strokeWidth={2}
-            type={"basis"}
+            type={"monotone"}
             dataKey={"sessionLength"}
             yAxisId="right"
             dot={false}
