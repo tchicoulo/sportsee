@@ -3,7 +3,12 @@ import { PieChart, Pie, Cell, Label, ResponsiveContainer } from "recharts";
 
 const Objectifs = ({ data }) => {
   console.log(data);
-  const dataScore = data.todayScore;
+  if (data["todayScore"]) {
+    data["score"] = data["todayScore"];
+    delete data["todayScore"];
+  }
+  const dataScore = data.score;
+
   console.log(dataScore);
 
   const dataPie = [
@@ -23,7 +28,6 @@ const Objectifs = ({ data }) => {
               fontWeight: 700,
               fontSize: "26px",
               fill: "#282D30",
-              // fontFamily: "Roboto",
             }}
           >
             {noOfBubbleTeaSold}
@@ -67,9 +71,9 @@ const Objectifs = ({ data }) => {
             cx="50%"
             cy="50%"
             innerRadius={80}
-            outerRadius={90}
+            outerRadius={91}
             style={{
-              WebkitTransform: "rotate(-30deg)",
+              WebkitTransform: "rotate(-70deg)",
               transformOrigin: "center",
             }}
           >
@@ -81,6 +85,7 @@ const Objectifs = ({ data }) => {
             })}
           </Pie>
           <Pie
+            isAnimationActive={false}
             data={dataPieInner}
             dataKey="value"
             cx="50%"
