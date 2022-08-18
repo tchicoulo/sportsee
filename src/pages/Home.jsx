@@ -107,16 +107,6 @@ const Home = () => {
     }
   }, [id, navigate]);
 
-  // const calories = data.keyData.calorieCount;
-  // const calories = data.keyData.calorieCount;
-  // console.log(typeof calories);
-  // console.log(calories.toLocalString());
-
-  // console.log(data);
-  // console.log(dataActivity);
-  // console.log(dataSessions);
-  // console.log(dataPerf);
-
   if (isLoading) {
     return (
       <div>
@@ -152,7 +142,7 @@ const Home = () => {
               <div className="charts-box">
                 <AverageSessions data={dataSessions} />
                 <Performances data={dataPerf} />
-                <Objectifs />
+                <Objectifs data={data} />
               </div>
             </div>
             <div className="infos-user">

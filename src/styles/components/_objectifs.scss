@@ -1,5 +1,16 @@
 .objectifs {
-  width: 20%;
-  height: 263px;
-  border: 1px solid orange;
+  width: 30%;
+  min-width: 250px;
+  height: 260px;
+  border-radius: 5px;
+  background-color: $color-background-charts;
+  position: relative;
+  & h2 {
+    position: absolute;
+    font-size: 15px;
+    color: $color-black-grey;
+    top: 24px;
+    left: 30px;
+    font-weight: 500;
+  }
 }
