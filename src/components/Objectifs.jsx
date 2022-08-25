@@ -8,8 +8,6 @@ const Objectifs = ({ data }) => {
   }
   const dataScore = data.score;
 
-  console.log(dataScore);
-
   const dataPie = [
     { name: "Active Value", value: dataScore },
     { name: "Inactive Value", value: 0.88 },

@@ -32,7 +32,7 @@ const Home = () => {
 
   useEffect(() => {
     if (process.env.REACT_APP_MODE === "dev") {
-      console.log("mode dev");
+      console.log("Mode Dev");
 
       const mainData = USER_MAIN_DATA.find((el) => el.id === parseInt(id));
       const activityData = USER_ACTIVITY.find(
@@ -57,13 +57,12 @@ const Home = () => {
         navigate("/error");
       }
     } else {
-      console.log("mode prod");
+      console.log("Mode Prod");
 
       const getUser = async () => {
         try {
           const { data } = await axios.get(`http://localhost:3000/user/${id}`);
           setData(data.data);
-          // setLoading(false);
         } catch (error) {
           navigate("/error");
         }
@@ -75,7 +74,6 @@ const Home = () => {
             `http://localhost:3000/user/${id}/activity`
           );
           setDataActivity(data.data);
-          // setLoading(false);
         } catch (error) {
           navigate("/error");
         }
@@ -87,7 +85,6 @@ const Home = () => {
             `http://localhost:3000/user/${id}/average-sessions`
           );
           setDataSessions(data.data);
-          // setLoading(false);
         } catch (error) {
           navigate("/error");
         }
@@ -100,7 +97,6 @@ const Home = () => {
           );
           setDataPerf(data.data);
           setLoading(false);
-          return true;
         } catch (error) {
           navigate("/error");
         }
@@ -110,79 +106,10 @@ const Home = () => {
       getActivity();
       getDataSessions();
       getDataPerf();
-
-      if (getUser() && getActivity() && getDataSessions() && getDataPerf()) {
-        console.log("youpi");
-      }
-
-      // axios
-      //   .get(`http://localhost:3000/user/${id}`)
-      //   .then((res) => {
-      //     setData(res.data.data);
-      //     setLoading(false);
-      //   })
-      //   .catch((err) => {
-      //     if (err.response.status === 404) {
-      //       navigate("/error");
-      //     }
-      //   });
-
-      // axios
-      //   .get(`http://localhost:3000/user/${id}/activity`)
-      //   .then((res) => {
-      //     setDataActivity(res.data.data);
-      //     setLoading(false);
-      //   })
-      //   .catch((err) => {
-      //     if (err.response.status === 404) {
-      //       navigate("/error");
-      //     }
-      //   });
-
-      // axios
-      //   .get(`http://localhost:3000/user/${id}/average-sessions`)
-      //   .then((res) => {
-      //     setDataSessions(res.data.data);
-      //     setLoading(false);
-      //   })
-      //   .catch((err) => {
-      //     if (err.response.status === 404) {
-      //       navigate("/error");
-      //     }
-      //   });
-      // axios
-      //   .get(`http://localhost:3000/user/${id}/performance`)
-      //   .then((res) => {
-      //     setDataPerf(res.data.data);
-      //     setLoading(false);
-      //   })
-      //   .catch((err) => {
-      //     if (err.response.status === 404) {
-      //       navigate("/error");
-      //     }
-      //   });
     }
   }, [id, navigate]);
 
-  // if (isLoading) {
-  //   console.log(data.userInfos);
-  //   console.log("loading");
-  //   return (
-  //     <div>
-  //       <HorizontalNav />
-  //       <div className="content">
-  //         <VerticalNav />
-  //         <div className="loading">
-  //           <span>Chargement...</span>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   if (!isLoading) {
-    console.log("okokokok");
-    console.log(data);
     return (
       <div>
         <HorizontalNav />
@@ -192,8 +119,12 @@ const Home = () => {
             <div className="content-name">
               <div className="title-box">
                 <h1>
-                  Bonjour
-                  <span className="name">{data.userInfos.firstName}</span>
+                  Bonjour{" "}
+                  <span className="name">
+                    {data.userInfos.firstName
+                      ? data.userInfos.firstName
+                      : "..."}
+                  </span>
                 </h1>
                 <h2>Félicitation ! Vous avez explosé vos objectifs hier 👏</h2>
               </div>

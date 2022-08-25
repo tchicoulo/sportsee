@@ -50,3 +50,50 @@
     width: 20%;
   }
 }
+
+@media only screen and (max-width: 1447px) {
+  .vertical-nav {
+    height: 118vh;
+  }
+}
+
+@media only screen and (max-width: $xl) {
+  .vertical-nav {
+    min-width: 80px;
+    height: 130vh;
+  }
+  .charts-box {
+    height: 300px;
+  }
+  .container .charts {
+    width: 95%;
+    margin: 0 auto;
+  }
+  .content-charts {
+    flex-direction: column;
+    & .infos-user {
+      width: 95%;
+      margin: 0 auto;
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+    & div.nutriments {
+      margin-bottom: 0;
+      text-align: center;
+      max-width: 130px;
+      height: 100px;
+      padding-right: 25px;
+      justify-content: center;
+      & .box-icon .background {
+        width: 0px;
+      }
+      & .values h4 {
+        font-size: 15px;
+        margin-top: 10px;
+      }
+      & .values span {
+        font-size: 12px;
+      }
+    }
+  }
+}

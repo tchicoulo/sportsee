@@ -10,7 +10,6 @@ import {
 } from "recharts";
 
 const AverageSessions = ({ data }) => {
-  console.log(data);
   const [perc, setPerc] = useState(0);
 
   let dataDays = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"];
