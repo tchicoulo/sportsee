@@ -2,7 +2,6 @@ import React from "react";
 import { PieChart, Pie, Cell, Label, ResponsiveContainer } from "recharts";
 
 const Objectifs = ({ data }) => {
-  console.log(data);
   if (data["todayScore"]) {
     data["score"] = data["todayScore"];
     delete data["todayScore"];

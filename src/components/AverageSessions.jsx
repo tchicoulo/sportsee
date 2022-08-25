@@ -1,32 +1,75 @@
-import React from "react";
-import moment from "moment";
+import React, { useState } from "react";
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer,
+  AreaChart,
   Area,
+  ResponsiveContainer,
 } from "recharts";
 
 const AverageSessions = ({ data }) => {
   console.log(data);
+  const [perc, setPerc] = useState(0);
+
+  let dataDays = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"];
+  let dataObj = data.sessions;
+
+  for (let i = 0; i < dataObj.length; i++) {
+    for (let j = 0; j < dataDays.length; j++) {
+      if (i === j) {
+        dataObj[i].day = dataDays[j];
+      }
+    }
+  }
+
+  const onMouseMove = (hoveredData) => {
+    if (hoveredData && hoveredData.activePayload) {
+      const hoveredX = hoveredData.activePayload[0].payload.day;
+      const index = dataObj.findIndex((d) => d.day === hoveredX);
+      console.log(index);
+      const percentage =
+        ((dataObj.length - index - 1) * 100) / (dataObj.length - 1);
+
+      setPerc(100 - percentage);
+    }
+  };
+
+  const onMouseOut = () => {
+    setPerc(0);
+  };
+
+  const customToolTip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          <p className="kilos">{`${payload[0].value}min`}</p>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="average-sessions">
       <h3>Durée moyenne de sessions</h3>
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          data={data.sessions}
-          margin={{
-            top: 20,
-            left: 20,
-            right: 20,
-            bottom: 70,
-          }}
+        <AreaChart
+          width={730}
+          height={250}
+          data={dataObj}
+          margin={{ top: 20, right: 20, left: 20, bottom: 70 }}
+          onMouseMove={onMouseMove}
+          onMouseOut={onMouseOut}
         >
-          <CartesianGrid vertical={false} horizontal={false} />
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="100%" y2="0">
+              <stop offset="0%" stopColor="#FFF" stopOpacity={0.1} />
+              <stop offset={`${perc}%`} stopColor="#FFF" stopOpacity={0.1} />
+              <stop offset={`${perc}%`} stopColor="#000" stopOpacity={0.1} />
+              <stop offset={`${100}%`} stopColor="#000" stopOpacity={0.1} />
+            </linearGradient>
+          </defs>
           <XAxis
             dataKey={"day"}
             stroke="#FFFFFF"
@@ -39,18 +82,24 @@ const AverageSessions = ({ data }) => {
             hide
             axisLine={false}
           />
-          <Tooltip />
-          <Line
-            stroke="#FFFFFF"
-            strokeWidth={2}
-            type={"monotone"}
+          <CartesianGrid
+            vertical={false}
+            horizontal={false}
+            strokeDasharray="3 3"
+          />
+          <Tooltip content={customToolTip} cursor={false} />
+          <Area
+            type="monotone"
             dataKey={"sessionLength"}
+            stroke="#FFF"
+            strokeWidth={2}
+            fillOpacity={1}
+            fill="url(#colorUv)"
             yAxisId="right"
             dot={false}
             activeDot={{ r: 4 }}
           />
-          {/* <Area type={"monotone"} dataKey={"sessionLength"} /> */}
-        </LineChart>
+        </AreaChart>
       </ResponsiveContainer>
     </div>
   );

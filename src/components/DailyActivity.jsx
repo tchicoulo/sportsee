@@ -12,6 +12,8 @@ import {
 } from "recharts";
 
 const DailyActivity = ({ data }) => {
+  console.log(data);
+
   const formatXAxis = (tickFormat) => {
     return moment(tickFormat).format("D");
   };

@@ -16,6 +16,7 @@ const Performances = ({ data }) => {
   kindValues = kindValues[0];
 
   const dataObj = data.data;
+  console.log(dataObj);
 
   for (let i = 0; i < dataObj.length; i++) {
     for (let j = 0; j < kindValues.length; j++) {
@@ -24,7 +25,6 @@ const Performances = ({ data }) => {
       }
     }
   }
-  console.log(dataObj);
 
   return (
     <div className="performances">
