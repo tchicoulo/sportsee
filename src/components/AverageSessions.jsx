@@ -27,7 +27,6 @@ const AverageSessions = ({ data }) => {
     if (hoveredData && hoveredData.activePayload) {
       const hoveredX = hoveredData.activePayload[0].payload.day;
       const index = dataObj.findIndex((d) => d.day === hoveredX);
-      console.log(index);
       const percentage =
         ((dataObj.length - index - 1) * 100) / (dataObj.length - 1);
 
