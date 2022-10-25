@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * Function global render data for nutriments section
+ * @param {*} props
+ */
 const Nutriments = (props) => {
   return (
     <div className="nutriments">

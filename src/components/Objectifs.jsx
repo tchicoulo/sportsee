@@ -1,6 +1,11 @@
 import React from "react";
 import { PieChart, Pie, Cell, Label, ResponsiveContainer } from "recharts";
 
+/**
+ * Function global render data for Objectifs chart
+ * @param {*} data - render all type of data in object
+ */
+
 const Objectifs = ({ data }) => {
   if (data["todayScore"]) {
     data["score"] = data["todayScore"];
@@ -15,7 +20,13 @@ const Objectifs = ({ data }) => {
 
   const dataPieInner = [{ name: "Active Value", value: 1 }];
 
-  const CustomLabel = ({ viewBox, noOfBubbleTeaSold = 0 }) => {
+  /**
+   *
+   * @param {number} viewbox Position of the text
+   * @param  {number} percentageData Data for the objectifs (in percentage)
+   */
+
+  const CustomLabel = ({ viewBox, percentageData = 0 }) => {
     const { cx, cy } = viewBox;
     return (
       <React.Fragment>
@@ -27,7 +38,7 @@ const Objectifs = ({ data }) => {
               fill: "#282D30",
             }}
           >
-            {noOfBubbleTeaSold}
+            {percentageData}
           </tspan>
         </text>
         <text x={cx - 25} y={cy + 25}>
@@ -92,7 +103,7 @@ const Objectifs = ({ data }) => {
           >
             <Label
               content={
-                <CustomLabel noOfBubbleTeaSold={`${dataPie[0].value * 100}%`} />
+                <CustomLabel percentageData={`${dataPie[0].value * 100}%`} />
               }
               position="center"
             />

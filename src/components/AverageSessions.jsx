@@ -9,6 +9,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+/**
+ * Average Sessions section
+ * @param {string} data - The data of sessions part
+ */
+
 const AverageSessions = ({ data }) => {
   const [perc, setPerc] = useState(0);
 
@@ -22,6 +27,11 @@ const AverageSessions = ({ data }) => {
       }
     }
   }
+
+  /**
+   * Function Mouse Move = data hovered on the average session chart
+   * @param {number} hoveredData
+   */
 
   const onMouseMove = (hoveredData) => {
     if (hoveredData && hoveredData.activePayload) {
@@ -37,6 +47,12 @@ const AverageSessions = ({ data }) => {
   const onMouseOut = () => {
     setPerc(0);
   };
+
+  /**
+   * Add a custom Tooltip into the chart
+   * @param {number} active - xAxis hovered
+   * @param {number} payload - Data in kilos
+   */
 
   const customToolTip = ({ active, payload }) => {
     if (active && payload && payload.length) {

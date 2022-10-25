@@ -16,6 +16,12 @@ const DailyActivity = ({ data }) => {
     return moment(tickFormat).format("D");
   };
 
+  /**
+   * Add a custom Tooltip into the chart
+   * @param {number} active - xAxis hovered
+   * @param {number} payload - Data in kilos
+   */
+
   const customToolTip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (

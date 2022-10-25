@@ -8,6 +8,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+/**
+ * Performances section
+ * @param {string} data - The data of performances part
+ */
+
 const Performances = ({ data }) => {
   let kindValues = [];
   kindValues.push(Object.values(data.kind));
