@@ -1,9 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { PieChart, Pie, Cell, Label, ResponsiveContainer } from "recharts";
 
 /**
  * Function global render data for Objectifs chart
- * @param {*} data - render all type of data in object
+ * @param {object} data - render global data
  */
 
 const Objectifs = ({ data }) => {
@@ -112,6 +113,10 @@ const Objectifs = ({ data }) => {
       </ResponsiveContainer>
     </div>
   );
+};
+
+Objectifs.propTypes = {
+  data: PropTypes.object,
 };
 
 export default Objectifs;

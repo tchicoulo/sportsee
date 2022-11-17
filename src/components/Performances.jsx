@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Radar,
   RadarChart,
@@ -10,7 +11,7 @@ import {
 
 /**
  * Performances section
- * @param {string} data - The data of performances part
+ * @param {object} data - The data of performances part
  */
 
 const Performances = ({ data }) => {
@@ -56,6 +57,10 @@ const Performances = ({ data }) => {
       </ResponsiveContainer>
     </div>
   );
+};
+
+Performances.propTypes = {
+  data: PropTypes.object,
 };
 
 export default Performances;

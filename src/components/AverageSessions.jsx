@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import {
   XAxis,
   YAxis,
@@ -11,7 +12,7 @@ import {
 
 /**
  * Average Sessions section
- * @param {string} data - The data of sessions part
+ * @param {object} data - The data of sessions part
  */
 
 const AverageSessions = ({ data }) => {
@@ -117,6 +118,10 @@ const AverageSessions = ({ data }) => {
       </ResponsiveContainer>
     </div>
   );
+};
+
+AverageSessions.propTypes = {
+  data: PropTypes.object,
 };
 
 export default AverageSessions;

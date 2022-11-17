@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import PropTypes from "prop-types";
 import {
   BarChart,
   Bar,
@@ -10,6 +11,11 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+
+/**
+ * Daily activity section
+ * @param {object} data The data of the daily activity part
+ */
 
 const DailyActivity = ({ data }) => {
   const formatXAxis = (tickFormat) => {
@@ -32,6 +38,7 @@ const DailyActivity = ({ data }) => {
       );
     }
   };
+
   return (
     <div className="daily-activity">
       <h3>Activité Quotidienne</h3>
@@ -97,6 +104,10 @@ const DailyActivity = ({ data }) => {
       </ResponsiveContainer>
     </div>
   );
+};
+
+DailyActivity.propTypes = {
+  data: PropTypes.object,
 };
 
 export default DailyActivity;
