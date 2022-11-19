@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import HorizontalNav from "../components/HorizontalNav";
 import VerticalNav from "../components/VerticalNav";
-import axios from "axios";
 import { useState } from "react";
 import DailyActivity from "../components/DailyActivity";
 import Performances from "../components/Performances";
@@ -13,6 +12,9 @@ import apple from "../assets/img/apple.png";
 import cheeseburger from "../assets/img/cheeseburger.png";
 import chicken from "../assets/img/chicken.png";
 import energy from "../assets/img/energy.png";
+
+import Api from "../services/callApi";
+
 import {
   USER_MAIN_DATA,
   USER_ACTIVITY,
@@ -31,9 +33,9 @@ const Home = () => {
   const [dataPerf, setDataPerf] = useState([]);
 
   useEffect(() => {
-    if (process.env.REACT_APP_MODE === "dev") {
-      console.log("Mode Dev");
+    const api = new Api();
 
+    if (process.env.REACT_APP_MODE === "dev") {
       const mainData = USER_MAIN_DATA.find((el) => el.id === parseInt(id));
       const activityData = USER_ACTIVITY.find(
         (el) => el.userId === parseInt(id)
@@ -57,55 +59,28 @@ const Home = () => {
         navigate("/error");
       }
     } else {
-      console.log("Mode Prod");
+      api
+        .getUser(id)
+        .then(({ data }) => setData(data.data))
+        .catch(() => navigate("/error"));
 
-      const getUser = async () => {
-        try {
-          const { data } = await axios.get(`http://localhost:3000/user/${id}`);
-          setData(data.data);
-        } catch (error) {
-          navigate("/error");
-        }
-      };
+      api
+        .getActivity(id)
+        .then(({ data }) => setDataActivity(data.data))
+        .catch(() => navigate("/error"));
 
-      const getActivity = async () => {
-        try {
-          const { data } = await axios.get(
-            `http://localhost:3000/user/${id}/activity`
-          );
-          setDataActivity(data.data);
-        } catch (error) {
-          navigate("/error");
-        }
-      };
+      api
+        .getDataSessions(id)
+        .then(({ data }) => setDataSessions(data.data))
+        .catch(() => navigate("/error"));
 
-      const getDataSessions = async () => {
-        try {
-          const { data } = await axios.get(
-            `http://localhost:3000/user/${id}/average-sessions`
-          );
-          setDataSessions(data.data);
-        } catch (error) {
-          navigate("/error");
-        }
-      };
-
-      const getDataPerf = async () => {
-        try {
-          const { data } = await axios.get(
-            `http://localhost:3000/user/${id}/performance`
-          );
+      api
+        .getDataPerf(id)
+        .then(({ data }) => {
           setDataPerf(data.data);
           setLoading(false);
-        } catch (error) {
-          navigate("/error");
-        }
-      };
-
-      getUser();
-      getActivity();
-      getDataSessions();
-      getDataPerf();
+        })
+        .catch(() => navigate("/error"));
     }
   }, [id, navigate]);
 

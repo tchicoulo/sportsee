@@ -25,7 +25,7 @@ const DailyActivity = ({ data }) => {
   /**
    * Add a custom Tooltip into the chart
    * @param {number} active - xAxis hovered
-   * @param {number} payload - Data in kilos
+   * @param {number} payload - Data in kilos or kcal
    */
 
   const customToolTip = ({ active, payload }) => {
@@ -37,6 +37,7 @@ const DailyActivity = ({ data }) => {
         </div>
       );
     }
+    return null;
   };
 
   return (
