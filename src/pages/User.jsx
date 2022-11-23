@@ -14,6 +14,7 @@ import chicken from "../assets/img/chicken.png";
 import energy from "../assets/img/energy.png";
 
 import Api from "../services/callApi";
+import User from "../models/User";
 
 import {
   USER_MAIN_DATA,
@@ -49,7 +50,14 @@ const Home = () => {
 
       try {
         if (mainData.id) {
-          setData(mainData);
+          const userInfos = new User(
+            mainData.id,
+            mainData.userInfos,
+            mainData.todayScore ? mainData.todayScore : mainData.score,
+            mainData.keyData
+          );
+
+          setData(userInfos);
           setDataActivity(activityData);
           setDataSessions(averageSessionsData);
           setDataPerf(performanceData);
@@ -61,23 +69,23 @@ const Home = () => {
     } else {
       api
         .getUser(id)
-        .then(({ data }) => setData(data.data))
+        .then((data) => setData(data))
         .catch(() => navigate("/error"));
 
       api
         .getActivity(id)
-        .then(({ data }) => setDataActivity(data.data))
+        .then((data) => setDataActivity(data))
         .catch(() => navigate("/error"));
 
       api
         .getDataSessions(id)
-        .then(({ data }) => setDataSessions(data.data))
+        .then((data) => setDataSessions(data))
         .catch(() => navigate("/error"));
 
       api
         .getDataPerf(id)
-        .then(({ data }) => {
-          setDataPerf(data.data);
+        .then((data) => {
+          setDataPerf(data);
           setLoading(false);
         })
         .catch(() => navigate("/error"));
@@ -96,9 +104,7 @@ const Home = () => {
                 <h1>
                   Bonjour{" "}
                   <span className="name">
-                    {data.userInfos.firstName
-                      ? data.userInfos.firstName
-                      : "..."}
+                    {data.firstName ? data.firstName : "..."}
                   </span>
                 </h1>
                 <h2>Félicitation ! Vous avez explosé vos objectifs hier 👏</h2>
@@ -117,28 +123,28 @@ const Home = () => {
               <div className="infos-user">
                 <Nutriments
                   img={energy}
-                  count={data.keyData.calorieCount}
+                  count={data.calorieCount}
                   style={{ backgroundColor: "#FF0000", opacity: 0.07 }}
                   unit="KCal"
                   nutriment="Calories"
                 />
                 <Nutriments
                   img={chicken}
-                  count={data.keyData.proteinCount}
+                  count={data.proteinCount}
                   style={{ backgroundColor: "rgba(74, 184, 255, 0.1)" }}
                   unit="g"
                   nutriment="Proteines"
                 />
                 <Nutriments
                   img={apple}
-                  count={data.keyData.carbohydrateCount}
+                  count={data.carbohydrateCount}
                   style={{ backgroundColor: "#F9CE23", opacity: 0.1 }}
                   unit="g"
                   nutriment="Glucides"
                 />
                 <Nutriments
                   img={cheeseburger}
-                  count={data.keyData.lipidCount}
+                  count={data.lipidCount}
                   style={{ backgroundColor: "rgba(253, 81, 129, 0.1)" }}
                   unit="g"
                   nutriment="Lipides"
