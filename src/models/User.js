@@ -1,3 +1,12 @@
+/**
+ * Modelisation Class of the user section
+ * @constructor
+ * @param {number} id - id of the user
+ * @param {string} userInfos - firstname, name of the user
+ * @param {number} todayScore - user's Score about the day
+ * @param {number} keyData - energy values of the user
+ */
+
 class User {
   constructor(id, userInfos, todayScore, keyData) {
     this.id = id;
